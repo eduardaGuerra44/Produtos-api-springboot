@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,16 +17,16 @@ public class ProductModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID idProduct;
+    private Integer idProduct;
     private String nome;
-    private int value;
+    private Integer value;
 
 
     public ProductModel(){
 
     }
 
-    public ProductModel(UUID idProduct, String nome, int value) {
+    public ProductModel(Integer idProduct, String nome, int value) {
         this.idProduct = idProduct;
         this.nome = nome;
         this.value = value;
