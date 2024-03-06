@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -18,17 +19,17 @@ public class ProductModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
-    private String nome;
-    private Integer value;
+    private String name;
+    private BigDecimal value;
 
 
     public ProductModel(){
 
     }
 
-    public ProductModel(Integer idProduct, String nome, int value) {
+    public ProductModel(Integer idProduct, String nome, BigDecimal value) {
         this.idProduct = idProduct;
-        this.nome = nome;
+        this.name = nome;
         this.value = value;
     }
 
@@ -37,7 +38,7 @@ public class ProductModel implements Serializable {
     public String toString() {
         return "ProductModel{" +
                 "idProduct=" + idProduct +
-                ", nome='" + nome + '\'' +
+                ", nome='" + name + '\'' +
                 ", value=" + value +
                 '}';
     }
