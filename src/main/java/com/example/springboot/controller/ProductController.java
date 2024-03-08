@@ -32,12 +32,12 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Object> getOneProduct(@PathVariable(value = "id") Integer id){
-            Optional<ProductModel> product0 = productRepository.findById(id);
-            if(product0.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(product0.get());
+    public ResponseEntity<ProductModel> getOneProduct(@PathVariable Integer id){
+            Optional<ProductModel> product = productRepository.findById(id);
+            if(product.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(product.get());
             }
-             return ResponseEntity.status(HttpStatus.OK).body(product0.get());
+             return ResponseEntity.status(HttpStatus.OK).body(product.get());
 
     }
 }

@@ -19,18 +19,18 @@ public class ProductModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
-    private String name;
-    private BigDecimal value;
+    private String nome;
+    private BigDecimal valor;
 
 
     public ProductModel(){
 
     }
 
-    public ProductModel(Integer idProduct, String nome, BigDecimal value) {
+    public ProductModel(Integer idProduct, String nome, BigDecimal valor) {
         this.idProduct = idProduct;
-        this.name = nome;
-        this.value = value;
+        this.nome = nome;
+        this.valor = valor;
     }
 
 
@@ -38,8 +38,8 @@ public class ProductModel implements Serializable {
     public String toString() {
         return "ProductModel{" +
                 "idProduct=" + idProduct +
-                ", nome='" + name + '\'' +
-                ", value=" + value +
+                ", nome='" + nome + '\'' +
+                ", valor=" + valor +
                 '}';
     }
 }
