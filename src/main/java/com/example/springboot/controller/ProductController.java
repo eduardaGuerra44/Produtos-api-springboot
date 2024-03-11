@@ -18,26 +18,51 @@ public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
-        @PostMapping("/products")
-        public ResponseEntity<ProductModel> saveProduct (@RequestBody @Valid ProductRecordDto productRecordDto){
+
+    @PostMapping("/products")
+    public ResponseEntity<ProductModel> saveProduct(@RequestBody @Valid ProductRecordDto productRecordDto) {
         var productModel = new ProductModel();
         BeanUtils.copyProperties(productRecordDto, productModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(productModel));
+            return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(productModel));
 
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductModel>> getAllProducts(){
-            return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
+    public ResponseEntity<List<ProductModel>> getAllProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<ProductModel> getOneProduct(@PathVariable Integer id){
-            Optional<ProductModel> product = productRepository.findById(id);
-            if(product.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(product.get());
-            }
-             return ResponseEntity.status(HttpStatus.OK).body(product.get());
+    public ResponseEntity<Object> getOneProduct(@PathVariable Integer id) {
+        Optional<ProductModel> productO = productRepository.findById(id);
+        if (productO.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(productO.get());
+        }
+            return ResponseEntity.status(HttpStatus.OK).body(productO.get());
 
     }
+
+    @PutMapping("/products/{id}")
+    public ResponseEntity<Object> updateProduct(@PathVariable Integer id,
+                                                @RequestBody @Valid ProductRecordDto productRecordDto) {
+
+        Optional<ProductModel> productO = productRepository.findById(id);
+        if (productO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("product not found");
+        }
+        var productModel = productO.get();
+        BeanUtils.copyProperties(productRecordDto, productModel);
+            return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<Object> deleteProduct (@PathVariable Integer id){
+        Optional<ProductModel> productO = productRepository.findById(id);
+        if (productO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+        }
+        productRepository.delete(productO.get());
+            return ResponseEntity.status(HttpStatus.OK).body("Product deletes successfully");
+    }
 }
+
